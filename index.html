@@ -679,7 +679,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Barlow
     <div class="t-sep"></div>
     <div class="t-sync">
       <div class="sync-dot" id="syncDot"></div>
-      <span id="syncLabel">Lokal</span>
+      <span id="syncLabel">Verbinde...</span>
     </div>
     <div class="legend">
       <div class="leg"><div class="leg-d setting"></div>Setting</div>
@@ -1445,6 +1445,7 @@ const S={
   crmFilter:'all', dashPeriod:'week',
   events:{}, leads:{}, fbReady:false
 };
+const bulkSelected = new Set(); // tracks bulk-selected lead IDs
 
 // ══════════════════════════════════════════════════════════════
 // STORAGE LAYER (localStorage cache helpers)
