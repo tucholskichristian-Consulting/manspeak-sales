@@ -706,24 +706,24 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Barlow
     overflow:hidden;
   }
 
-  /* Lead list — full screen */
+  /* Lead list — full screen, slides left when detail opens */
   .lead-list{
     position:absolute!important;inset:0!important;
     display:flex!important;flex-direction:column;
     background:var(--bg);z-index:10;
-    transition:transform 0.26s ease;
+    transition:transform 0.28s cubic-bezier(0.4,0,0.2,1);
     transform:translateX(0);
     overflow:hidden;
   }
-  .lead-list.mob-hidden{transform:translateX(-105%)!important;}
+  .lead-list.mob-hidden{transform:translateX(-100%)!important;}
 
-  /* Lead detail — slides in from right */
+  /* Lead detail — starts offscreen RIGHT, slides in to 0 */
   .ld{
     position:absolute!important;inset:0!important;
     background:var(--bg);z-index:20;
     overflow-y:auto;-webkit-overflow-scrolling:touch;
-    transition:transform 0.26s ease;
-    transform:translateX(105%);
+    transition:transform 0.28s cubic-bezier(0.4,0,0.2,1);
+    transform:translateX(100%);
   }
   .ld.mob-show{transform:translateX(0)!important;}
 
@@ -732,19 +732,33 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Barlow
     display:flex!important;align-items:center;gap:8px;
     width:100%;background:var(--bg2);
     border:none;border-bottom:1px solid var(--border);
-    color:var(--gold-l);font-size:13px;font-weight:600;
-    padding:13px 16px;cursor:pointer;flex-shrink:0;
-    font-family:'Barlow',sans-serif;
+    color:var(--gold-l);font-size:13px;font-weight:700;
+    padding:14px 16px;cursor:pointer;flex-shrink:0;
+    font-family:'Barlow',sans-serif;letter-spacing:0.05em;
   }
 
+  /* Lead list — better readability */
   .ld-grid{grid-template-columns:1fr!important;}
-  .pipeline{flex-wrap:wrap;gap:4px;padding:8px 12px;}
-  .pipeline button{font-size:8.5px;padding:5px 10px;}
+  .pipeline{flex-wrap:wrap;gap:6px;padding:10px 14px;}
+  .pipeline button{font-size:10px;padding:8px 12px;flex:1;}
 
-  /* Lead list items bigger for touch */
-  .l-item{padding:10px 14px;}
-  .l-name{font-size:13px;}
-  .l-search input{font-size:14px;padding:10px 12px;}
+  /* Bigger touch targets */
+  .l-item{padding:12px 16px;min-height:52px;}
+  .l-name{font-size:14px!important;font-weight:600;}
+  .l-meta{font-size:11px!important;}
+  .l-date{font-size:10px!important;}
+  .l-search input{font-size:16px;padding:12px 14px;}
+  .f-pill{font-size:10px;padding:6px 12px;}
+
+  /* Lead detail fields bigger */
+  .ld-fl{font-size:10px!important;}
+  .ld-fv{font-size:13px!important;}
+  .ld-name{font-size:20px!important;}
+  .ld-meta{font-size:11px!important;}
+  .ld-actions .btn-p,.ld-actions .btn-g{
+    font-size:11px!important;padding:9px 14px!important;flex:1;
+  }
+  textarea{font-size:13px!important;}
 
   /* ── DIALER ── */
   .dialer-body{grid-template-columns:1fr!important;}
