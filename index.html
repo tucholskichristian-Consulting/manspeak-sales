@@ -608,116 +608,134 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Barlow
 /* ══ MOBILE RESPONSIVE ══════════════════════════════════════ */
 @media (max-width: 768px) {
   /* ── LAYOUT ── */
-  .app-body{grid-template-columns:1fr;}
+  .app{display:flex;flex-direction:column;height:100vh;}
+  .app-body{grid-template-columns:1fr;flex:1;min-height:0;}
   .sidebar{display:none;}
   .sidebar.mob-open{
     display:flex;position:fixed;left:0;top:46px;bottom:0;
-    width:240px;z-index:500;box-shadow:4px 0 24px rgba(0,0,0,0.7);
+    width:260px;z-index:500;box-shadow:4px 0 24px rgba(0,0,0,0.8);
     overflow-y:auto;
   }
   .mob-menu-btn{display:flex!important;}
-  .panels{height:calc(100vh - 46px);overflow:hidden;}
+  .panels{flex:1;overflow:hidden;height:calc(100vh - 46px);}
+  .panel.active{height:100%;overflow:hidden;}
 
   /* ── TOPBAR ── */
-  .topbar{padding:0 10px;gap:8px;height:46px;}
-  .t-logo{font-size:9px;letter-spacing:0.25em;}
+  .topbar{padding:0 10px;gap:8px;height:46px;min-height:46px;flex-shrink:0;}
+  .t-logo{font-size:10px;letter-spacing:0.2em;}
   .t-sep{display:none;}
-  .t-sync{font-size:9px;}
+  .t-sync{font-size:9px;gap:4px;}
+  .sync-dot{width:5px;height:5px;}
   .t-logout{font-size:8px;padding:2px 6px;}
-  .t-user-badge{font-size:9px;padding:2px 8px;}
+  .t-user-badge{font-size:9px;padding:3px 8px;}
 
   /* ── PANEL HEADER ── */
   .ph{padding:8px 12px;flex-wrap:wrap;gap:6px;}
   .ph-title{font-size:10px;}
-  .btn-p{font-size:8.5px;padding:5px 10px;}
+  .btn-p,.btn-g{font-size:9px;padding:5px 10px;}
 
   /* ── KALENDER ── */
+  .week-view{display:none!important;}
   .cal-header{padding:8px 12px;flex-wrap:wrap;gap:6px;}
-  .day-view{padding:0;}
-  .week-view{display:none;}
-  .cal-grid{font-size:10px;}
+  .day-col{min-height:600px;}
   .cal-ev{font-size:9px;padding:2px 4px;}
   .ev-form{padding:12px;}
-  .ev-row{grid-template-columns:1fr;}
+  .ev-row{grid-template-columns:1fr!important;}
+  .ev-row>*{min-width:0;}
 
   /* ── CRM ── */
-  .crm-body{grid-template-columns:1fr;height:calc(100vh - 90px);}
+  .crm-body{
+    display:block!important;
+    position:relative;
+    height:calc(100vh - 46px);
+    overflow:hidden;
+  }
+  /* Lead list takes full screen on mobile */
   .lead-list{
-    display:flex;position:fixed;inset:46px 0 0 0;z-index:300;
-    background:var(--bg);flex-direction:column;
+    position:absolute!important;
+    inset:0!important;
+    display:flex!important;
+    flex-direction:column;
+    background:var(--bg);
+    z-index:10;
+    transition:transform 0.28s cubic-bezier(0.4,0,0.2,1);
     transform:translateX(0);
+    overflow:hidden;
   }
-  .lead-list.mob-hidden{transform:translateX(-100%);transition:transform 0.25s;}
-  .ld{position:fixed;inset:46px 0 0 0;z-index:310;background:var(--bg);overflow-y:auto;}
-  .ld.mob-hidden{transform:translateX(100%);transition:transform 0.25s;}
-  .ld-grid{grid-template-columns:1fr;}
-  .ld-actions{flex-wrap:wrap;gap:6px;}
-  .ld-actions .btn-p,.ld-actions .btn-g{font-size:9px;flex:1;text-align:center;}
-  
-  /* CRM back button */
+  .lead-list.mob-hidden{
+    transform:translateX(-100%)!important;
+  }
+  /* Lead detail takes full screen on mobile */
+  .ld{
+    position:absolute!important;
+    inset:0!important;
+    background:var(--bg);
+    z-index:20;
+    overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+    transition:transform 0.28s cubic-bezier(0.4,0,0.2,1);
+    transform:translateX(100%);
+  }
+  .ld.mob-show{
+    transform:translateX(0)!important;
+  }
   .mob-back-btn{
-    display:flex!important;align-items:center;gap:6px;
-    background:none;border:none;color:var(--gold-l);
-    font-size:11px;padding:10px 14px;cursor:pointer;
+    display:flex!important;align-items:center;gap:8px;
+    background:var(--bg2);border:none;border-bottom:1px solid var(--border);
+    color:var(--gold-l);font-size:12px;font-weight:600;
+    padding:12px 16px;cursor:pointer;width:100%;
     font-family:'Barlow',sans-serif;letter-spacing:0.05em;
-    border-bottom:1px solid var(--border);width:100%;
+    flex-shrink:0;
   }
+  .ld-grid{grid-template-columns:1fr!important;}
+  .ld-actions{flex-wrap:wrap;gap:6px;}
 
-  /* ── PIPELINE BUTTONS ── */
+  /* ── PIPELINE ── */
   .pipeline{flex-wrap:wrap;gap:4px;padding:8px 12px;}
-  .pipeline button{font-size:8px;padding:4px 8px;flex:1;min-width:0;}
-
-  /* ── LEAD DETAIL ── */
-  .ld-field{font-size:11px;}
-  .ld-label{font-size:9px;}
-  .activity-item{font-size:10px;}
+  .pipeline button{font-size:8.5px;padding:5px 8px;}
 
   /* ── POWER DIALER ── */
-  .dialer-body{grid-template-columns:1fr;}
-  .dialer-queue{
-    position:fixed;bottom:0;left:0;right:0;z-index:200;
-    max-height:40vh;background:var(--bg2);
-    border-top:1px solid var(--border);
-    display:none;
-  }
-  .dialer-queue.mob-show{display:flex;flex-direction:column;}
-  .dialer-main{padding:10px 12px;}
-  .call-name{font-size:20px;}
-  .call-btns{flex-wrap:wrap;gap:8px;}
-  .call-btns .btn-p,.call-btns .btn-g{flex:1;min-width:calc(50% - 4px);font-size:9px;text-align:center;}
-  .result-btns{grid-template-columns:1fr 1fr;gap:6px;}
-  .timer-row{flex-wrap:wrap;gap:8px;}
-  .dialer-kpi{grid-template-columns:repeat(2,1fr);}
+  .dialer-body{grid-template-columns:1fr!important;}
+  .dialer-queue{display:none!important;}
+  .dialer-main{padding:12px;}
+  .call-name{font-size:22px!important;}
+  .result-btns{grid-template-columns:1fr 1fr!important;gap:8px;}
+  .dialer-kpi{grid-template-columns:repeat(2,1fr)!important;}
+  .timer-row{justify-content:center;gap:10px;}
 
   /* ── KPI DASHBOARD ── */
-  .kpi-grid{grid-template-columns:repeat(2,1fr);}
+  .kpi-grid{grid-template-columns:repeat(2,1fr)!important;}
   .dash-body{padding:10px;}
   .dash-row{grid-template-columns:1fr!important;}
-  .dash-card{padding:10px;}
-  .goals-grid{grid-template-columns:1fr;}
-  .da-quick{grid-template-columns:repeat(2,1fr);}
+  .goals-grid{grid-template-columns:1fr!important;}
+  .da-quick{grid-template-columns:repeat(2,1fr)!important;}
 
   /* ── REMINDERS ── */
   .rem-body{padding:8px;}
-  .rem-item{padding:8px 10px;flex-wrap:wrap;gap:6px;}
+  .rem-item{flex-wrap:wrap;gap:6px;padding:8px 10px;}
   .rem-actions{flex-wrap:wrap;}
 
   /* ── ADMIN ── */
-  .admin-grid{grid-template-columns:1fr;}
-  .admin-card.full{grid-column:1;}
-  .fr{grid-template-columns:1fr;}
+  .admin-grid{grid-template-columns:1fr!important;}
+  .admin-card.full{grid-column:1!important;}
+  .fr{grid-template-columns:1fr!important;}
+  .user-card{flex-direction:column;align-items:flex-start;gap:6px;}
 
   /* ── MODALS ── */
-  .modal{width:95vw!important;max-height:90vh;overflow-y:auto;}
+  .modal{width:96vw!important;max-width:96vw!important;max-height:92vh;overflow-y:auto;}
   .modal-body{padding:12px;}
 
   /* ── SCRIPTS ── */
-  .script-phase{font-size:9px;}
-  .script-body{font-size:10px;}
+  .script-phase,.script-cheat{font-size:9px;padding:8px 10px;}
+  .script-body{font-size:10px;padding:8px 10px;}
+  .script-line{font-size:10px;}
 
-  /* ── MINI CAL in sidebar ── */
+  /* ── LOG ── */
+  .log-item{flex-wrap:wrap;gap:4px;font-size:10px;}
+
+  /* ── MINI CAL ── */
   .mini-cal{padding:6px 8px;}
-  .mc-d{font-size:8px;padding:2px;}
+  .mc-d{font-size:8px;padding:2px 1px;}
 }
 .mob-menu-btn{display:none;background:none;border:1px solid var(--border);
   color:var(--muted);width:30px;height:30px;cursor:pointer;font-size:16px;
@@ -2290,7 +2308,50 @@ async function setLeadSt(id,status){
   const l=S.leads[id];
   if(l){const h=l.history||[];h.push({type:'status',date:fmtDate(new Date()),time:'',note:'→ '+status,ts:Date.now()});
     await dbUpd('leads/'+id,{history:h});}
+  // ── SALES AUTOMATION ──────────────────────────────────────
+  salesAutomation(id, status, l);
   renderLeads();renderLeadDetail(id);toast('Status: '+status,'green');
+}
+
+// Auto-Reminder wenn Lead auf "won" (Abschluss) oder "lost" gesetzt wird
+function salesAutomation(leadId, newStatus, lead){
+  if(!lead) return;
+  const name = lead.name || 'Lead';
+  const now = new Date();
+
+  if(newStatus === 'won'){
+    // Upsell-Reminder in 7 Tagen
+    const remDate = new Date(now.getTime() + 7*24*60*60*1000);
+    const remId = 'auto_upsell_'+leadId;
+    const rem = {
+      id: remId, leadId: leadId, leadName: name,
+      type: 'upsell',
+      text: `💰 Upsell-Call: ${name} ist seit 7 Tagen Kunde. Jetzt nachhaken!`,
+      date: fmtDate(remDate), ts: remDate.getTime(),
+      done: false, auto: true
+    };
+    if(!S.reminders) S.reminders = {};
+    S.reminders[remId] = rem;
+    DB.set('reminders/'+remId, rem);
+    toast(`⏰ Upsell-Reminder für ${name} in 7 Tagen gesetzt`, 'green');
+
+  } else if(newStatus === 'lost'){
+    // Re-Engagement-Reminder in 14 Tagen
+    const remDate = new Date(now.getTime() + 14*24*60*60*1000);
+    const remId = 'auto_reengage_'+leadId;
+    const rem = {
+      id: remId, leadId: leadId, leadName: name,
+      type: 'reengage',
+      text: `🔄 Re-Engagement: ${name} war kein Close. Nochmal versuchen?`,
+      date: fmtDate(remDate), ts: remDate.getTime(),
+      done: false, auto: true
+    };
+    if(!S.reminders) S.reminders = {};
+    S.reminders[remId] = rem;
+    DB.set('reminders/'+remId, rem);
+    toast(`⏰ Re-Engagement-Reminder für ${name} in 14 Tagen`, 'orange');
+  }
+  updateRemBadge();
 }
 async function updLead(id,f,v){
   const _ulL=S.leads[id];
