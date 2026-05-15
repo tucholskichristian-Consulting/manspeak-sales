@@ -926,12 +926,12 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Barlow
 
       <!-- CRM -->
       <div class="panel" id="panel-crm" style="position:relative;overflow:hidden;">
-        <div class="ph">
+        <div class="ph" id="crm-ph">
           <span class="ph-title">CRM · Leads</span>
           <span class="ph-sub" id="crmCount">0 Leads</span>
           <button class="btn-p" style="margin-left:auto" onclick="openLeadModal()">+ Lead</button>
         </div>
-        <div class="crm-body">
+        <div id="crm-body-wrap" class="crm-body">
           <div style="display:none;align-items:center;gap:8px;padding:8px 12px;
   background:var(--gold-bg);border-bottom:1px solid var(--border);flex-shrink:0;flex-wrap:wrap"
   id="bulkBar">
@@ -2307,22 +2307,25 @@ function updateBadge(){
 }
 
 function renderLeads(){
-  var ll = document.querySelector('.lead-list');
-  if(ll){
-    ll.style.display='flex';
-    ll.style.flexDirection='column';
-    if(isMobile()){
-      // Mobile: full screen
-      ll.style.width='100%';
-      ll.style.minWidth='0';
-      ll.style.position='absolute';
-      ll.style.top='0'; ll.style.left='0'; ll.style.right='0'; ll.style.bottom='0';
-      ll.style.zIndex='10';
-    } else {
-      // Desktop: fixed 300px
-      ll.style.width='300px';
-      ll.style.minWidth='300px';
-      ll.style.position='';
+  // Apply mobile layout every time leads render
+  if(isMobile()){
+    var wrap = document.getElementById('crm-body-wrap');
+    if(wrap){
+      wrap.style.cssText='position:absolute;top:0;left:0;right:0;bottom:56px;display:block;overflow:hidden;';
+    }
+    var ll = document.querySelector('.lead-list');
+    if(ll){
+      ll.style.cssText='position:absolute;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;background:var(--bg);z-index:10;overflow:hidden;transition:transform 0.28s ease;';
+      if(!ll.style.transform) ll.style.transform='translateX(0)';
+    }
+    var ld = document.getElementById('leadDetail');
+    if(ld && !ld.style.transform){
+      ld.style.cssText='position:absolute;top:0;left:0;right:0;bottom:0;background:var(--bg);z-index:20;overflow-y:auto;transition:transform 0.28s ease;transform:translateX(100%);';
+    }
+  } else {
+    var ll = document.querySelector('.lead-list');
+    if(ll){
+      ll.style.cssText='display:flex;flex-direction:column;width:300px;min-width:300px;';
     }
   }
   const q=(document.getElementById('crmQ')?.value||'').toLowerCase();
