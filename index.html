@@ -2307,9 +2307,24 @@ function updateBadge(){
 }
 
 function renderLeads(){
-  // Force lead-list visible regardless of CSS
   var ll = document.querySelector('.lead-list');
-  if(ll) { ll.style.display='flex'; ll.style.flexDirection='column'; ll.style.width='300px'; ll.style.minWidth='300px'; }
+  if(ll){
+    ll.style.display='flex';
+    ll.style.flexDirection='column';
+    if(isMobile()){
+      // Mobile: full screen
+      ll.style.width='100%';
+      ll.style.minWidth='0';
+      ll.style.position='absolute';
+      ll.style.top='0'; ll.style.left='0'; ll.style.right='0'; ll.style.bottom='0';
+      ll.style.zIndex='10';
+    } else {
+      // Desktop: fixed 300px
+      ll.style.width='300px';
+      ll.style.minWidth='300px';
+      ll.style.position='';
+    }
+  }
   const q=(document.getElementById('crmQ')?.value||'').toLowerCase();
   const f=S.crmFilter;
   const allF=[{k:'all',l:'Alle'},...STATUSES];
