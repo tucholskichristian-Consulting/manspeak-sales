@@ -176,7 +176,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Barlow
 .w-ev.noshow{background:var(--red-l);border-color:var(--red);opacity:0.45;}
 
 /* ── CRM ── */
-.crm-body{flex:1;display:grid;grid-template-columns:300px 1fr;overflow:hidden;height:100%;min-height:0;}
+.crm-body{flex:1;display:grid;grid-template-columns:300px 1fr;overflow:hidden;height:100%;min-height:0;position:relative;}
 .lead-list{border-right:1px solid var(--border);overflow:hidden;display:flex!important;flex-direction:column;}
 .l-search{padding:8px 10px;border-bottom:1px solid var(--border);}
 .l-search input{width:100%;background:var(--bg3);border:1px solid var(--border);
@@ -703,12 +703,13 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Barlow
   /* ── CRM ── */
   .crm-body{
     position:absolute!important;
-    inset:0!important;
-    bottom:56px!important;
+    top:0!important;left:0!important;right:0!important;bottom:56px!important;
+    width:100%!important;height:auto!important;
     display:block!important;
+    grid-template-columns:none!important;
+    grid-template-rows:none!important;
     overflow:hidden!important;
-    grid-template-columns:unset!important;
-    width:100%!important;
+    flex:none!important;
   }
 
   /* Lead list — full screen, slides left when detail opens */
@@ -924,7 +925,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Barlow
       </div>
 
       <!-- CRM -->
-      <div class="panel" id="panel-crm">
+      <div class="panel" id="panel-crm" style="position:relative;overflow:hidden;">
         <div class="ph">
           <span class="ph-title">CRM · Leads</span>
           <span class="ph-sub" id="crmCount">0 Leads</span>
