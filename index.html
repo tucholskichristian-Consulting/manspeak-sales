@@ -1648,6 +1648,7 @@ const STATUSES=[
 const DEFAULT_USERS=[
   {id:'liam', name:'Liam', role:'admin', avatar:'👑'},
   {id:'linus',name:'Linus',role:'closer',avatar:'🎯'},
+  {id:'christian_tobos',name:'Christian Tobos',role:'closer',avatar:'💰'},
 ];
 const ADMIN_PW='Manspeak2026';
 
@@ -2024,8 +2025,10 @@ function enterApp(){
 
     // 6. Log login
     setTimeout(()=>logAction('login',`Eingeloggt als ${S.user.role}`,''),200);
-    // 7. Init mobile UI
-    setTimeout(initMobileUI, 100);
+    // 7. Init mobile UI - multiple times to catch async renders
+    setTimeout(initMobileUI, 50);
+    setTimeout(initMobileUI, 500);
+    setTimeout(initMobileUI, 2000);
   }, 300);
 }
 
@@ -2325,7 +2328,7 @@ function renderLeads(){
   } else {
     var ll = document.querySelector('.lead-list');
     if(ll){
-      ll.style.cssText='display:flex;flex-direction:column;width:300px;min-width:300px;';
+      ll.style.cssText='display:flex;flex-direction:column;width:300px;min-width:300px;position:relative;';
     }
   }
   const q=(document.getElementById('crmQ')?.value||'').toLowerCase();
