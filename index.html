@@ -2344,6 +2344,19 @@ function renderLeads(){
 }
 function setCrmF(f){S.crmFilter=f;renderLeads();}
 
+function mobBackToList(){
+  var ll = document.querySelector('.lead-list');
+  var ld = document.getElementById('leadDetail');
+  if(ll){ ll.style.transform='translateX(0)'; }
+  if(ld){ ld.style.transform='translateX(100%)'; }
+}
+function mobShowDetail(){
+  if(!isMobile()) return;
+  var ll = document.querySelector('.lead-list');
+  var ld = document.getElementById('leadDetail');
+  if(ll){ ll.style.transform='translateX(-100%)'; }
+  if(ld){ ld.style.transform='translateX(0)'; }
+}
 function selLead(id){S.selLeadId=id;renderLeads();renderLeadDetail(id);mobShowDetail();}
 
 function renderLeadDetail(id){
