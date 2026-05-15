@@ -606,33 +606,124 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Barlow
 .goal-set-btn:hover{border-color:var(--gold);color:var(--gold-l);}
 
 /* ══ MOBILE RESPONSIVE ══════════════════════════════════════ */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
+  /* ── LAYOUT ── */
   .app-body{grid-template-columns:1fr;}
   .sidebar{display:none;}
-  .sidebar.mob-open{display:flex;position:fixed;left:0;top:46px;bottom:0;
-    width:220px;z-index:500;box-shadow:4px 0 20px rgba(0,0,0,0.5);}
+  .sidebar.mob-open{
+    display:flex;position:fixed;left:0;top:46px;bottom:0;
+    width:240px;z-index:500;box-shadow:4px 0 24px rgba(0,0,0,0.7);
+    overflow-y:auto;
+  }
   .mob-menu-btn{display:flex!important;}
-  .kpi-grid{grid-template-columns:repeat(2,1fr);}
-  .crm-body{grid-template-columns:1fr;}
-  .lead-list{display:none;}
-  .lead-list.mob-show{display:flex;position:fixed;inset:46px 0 0 0;z-index:400;
-    background:var(--bg2);}
+  .panels{height:calc(100vh - 46px);overflow:hidden;}
+
+  /* ── TOPBAR ── */
+  .topbar{padding:0 10px;gap:8px;height:46px;}
+  .t-logo{font-size:9px;letter-spacing:0.25em;}
+  .t-sep{display:none;}
+  .t-sync{font-size:9px;}
+  .t-logout{font-size:8px;padding:2px 6px;}
+  .t-user-badge{font-size:9px;padding:2px 8px;}
+
+  /* ── PANEL HEADER ── */
+  .ph{padding:8px 12px;flex-wrap:wrap;gap:6px;}
+  .ph-title{font-size:10px;}
+  .btn-p{font-size:8.5px;padding:5px 10px;}
+
+  /* ── KALENDER ── */
+  .cal-header{padding:8px 12px;flex-wrap:wrap;gap:6px;}
+  .day-view{padding:0;}
+  .week-view{display:none;}
+  .cal-grid{font-size:10px;}
+  .cal-ev{font-size:9px;padding:2px 4px;}
+  .ev-form{padding:12px;}
+  .ev-row{grid-template-columns:1fr;}
+
+  /* ── CRM ── */
+  .crm-body{grid-template-columns:1fr;height:calc(100vh - 90px);}
+  .lead-list{
+    display:flex;position:fixed;inset:46px 0 0 0;z-index:300;
+    background:var(--bg);flex-direction:column;
+    transform:translateX(0);
+  }
+  .lead-list.mob-hidden{transform:translateX(-100%);transition:transform 0.25s;}
+  .ld{position:fixed;inset:46px 0 0 0;z-index:310;background:var(--bg);overflow-y:auto;}
+  .ld.mob-hidden{transform:translateX(100%);transition:transform 0.25s;}
+  .ld-grid{grid-template-columns:1fr;}
+  .ld-actions{flex-wrap:wrap;gap:6px;}
+  .ld-actions .btn-p,.ld-actions .btn-g{font-size:9px;flex:1;text-align:center;}
+  
+  /* CRM back button */
+  .mob-back-btn{
+    display:flex!important;align-items:center;gap:6px;
+    background:none;border:none;color:var(--gold-l);
+    font-size:11px;padding:10px 14px;cursor:pointer;
+    font-family:'Barlow',sans-serif;letter-spacing:0.05em;
+    border-bottom:1px solid var(--border);width:100%;
+  }
+
+  /* ── PIPELINE BUTTONS ── */
+  .pipeline{flex-wrap:wrap;gap:4px;padding:8px 12px;}
+  .pipeline button{font-size:8px;padding:4px 8px;flex:1;min-width:0;}
+
+  /* ── LEAD DETAIL ── */
+  .ld-field{font-size:11px;}
+  .ld-label{font-size:9px;}
+  .activity-item{font-size:10px;}
+
+  /* ── POWER DIALER ── */
   .dialer-body{grid-template-columns:1fr;}
-  .dialer-queue{display:none;}
+  .dialer-queue{
+    position:fixed;bottom:0;left:0;right:0;z-index:200;
+    max-height:40vh;background:var(--bg2);
+    border-top:1px solid var(--border);
+    display:none;
+  }
+  .dialer-queue.mob-show{display:flex;flex-direction:column;}
+  .dialer-main{padding:10px 12px;}
+  .call-name{font-size:20px;}
+  .call-btns{flex-wrap:wrap;gap:8px;}
+  .call-btns .btn-p,.call-btns .btn-g{flex:1;min-width:calc(50% - 4px);font-size:9px;text-align:center;}
+  .result-btns{grid-template-columns:1fr 1fr;gap:6px;}
+  .timer-row{flex-wrap:wrap;gap:8px;}
+  .dialer-kpi{grid-template-columns:repeat(2,1fr);}
+
+  /* ── KPI DASHBOARD ── */
+  .kpi-grid{grid-template-columns:repeat(2,1fr);}
+  .dash-body{padding:10px;}
+  .dash-row{grid-template-columns:1fr!important;}
+  .dash-card{padding:10px;}
+  .goals-grid{grid-template-columns:1fr;}
+  .da-quick{grid-template-columns:repeat(2,1fr);}
+
+  /* ── REMINDERS ── */
+  .rem-body{padding:8px;}
+  .rem-item{padding:8px 10px;flex-wrap:wrap;gap:6px;}
+  .rem-actions{flex-wrap:wrap;}
+
+  /* ── ADMIN ── */
   .admin-grid{grid-template-columns:1fr;}
   .admin-card.full{grid-column:1;}
-  .dash-row.r2{grid-template-columns:1fr;}
-  .goals-grid{grid-template-columns:1fr 1fr;}
-  .da-quick{grid-template-columns:repeat(2,1fr);}
   .fr{grid-template-columns:1fr;}
-  .ld-grid{grid-template-columns:1fr;}
-  .week-view{display:none;}
-  .ph{flex-wrap:wrap;gap:6px;}
+
+  /* ── MODALS ── */
+  .modal{width:95vw!important;max-height:90vh;overflow-y:auto;}
+  .modal-body{padding:12px;}
+
+  /* ── SCRIPTS ── */
+  .script-phase{font-size:9px;}
+  .script-body{font-size:10px;}
+
+  /* ── MINI CAL in sidebar ── */
+  .mini-cal{padding:6px 8px;}
+  .mc-d{font-size:8px;padding:2px;}
 }
 .mob-menu-btn{display:none;background:none;border:1px solid var(--border);
   color:var(--muted);width:30px;height:30px;cursor:pointer;font-size:16px;
   transition:all 0.2s;}
 .mob-menu-btn:hover{border-color:var(--gold);color:var(--gold-l);}
+.mob-back-btn{display:none;}
 .mob-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:490;}
 .mob-overlay.show{display:block;}
 
@@ -2115,7 +2206,7 @@ function renderLeads(){
 }
 function setCrmF(f){S.crmFilter=f;renderLeads();}
 
-function selLead(id){S.selLeadId=id;renderLeads();renderLeadDetail(id);}
+function selLead(id){S.selLeadId=id;renderLeads();renderLeadDetail(id);mobShowDetail();}
 
 function renderLeadDetail(id){
   const l=S.leads[id];if(!l)return;
