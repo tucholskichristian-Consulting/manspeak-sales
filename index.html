@@ -688,6 +688,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Barlow
 
   /* Panels need bottom padding for nav bar */
   .panel.active{padding-bottom:56px;}
+  #panel-crm.active{padding-bottom:0!important;}
 
   /* ── KALENDER ── */
   .cal-body{overflow-y:auto;flex:1;}
@@ -701,9 +702,13 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Barlow
 
   /* ── CRM ── */
   .crm-body{
-    position:absolute;inset:0;
+    position:absolute!important;
+    inset:0!important;
+    bottom:56px!important;
     display:block!important;
-    overflow:hidden;
+    overflow:hidden!important;
+    grid-template-columns:unset!important;
+    width:100%!important;
   }
 
   /* Lead list — full screen, slides left when detail opens */
