@@ -3268,7 +3268,11 @@ const LOG_ACTIONS = {
 let logFilter = 'all';
 
 function getLog(){
-  return ls('mp_log', []);
+  const raw = S.log || ls('mp_log', []);
+  // Firebase stores as object, localStorage as array — normalize to array
+  if(Array.isArray(raw)) return raw;
+  if(typeof raw === 'object') return Object.values(raw);
+  return [];
 }
 function saveLog(entries){ lss('mp_log', entries); }
 
