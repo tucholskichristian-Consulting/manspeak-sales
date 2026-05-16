@@ -641,9 +641,10 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Barlow
   /* Sidebar — completely hidden, replaced by bottom nav */
   .sidebar{display:none!important;}
 
-  /* Panels — full height */
+  /* Panels — full height minus bottom nav */
   .panels{
-    position:absolute;inset:0;
+    position:absolute;
+    top:0;left:0;right:0;bottom:56px;
     display:block!important;
     overflow:hidden;
   }
@@ -686,8 +687,8 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Barlow
   }
   .mob-bn-badge.red{background:var(--red);color:#fff;}
 
-  /* Panels need bottom padding for nav bar */
-  .panel.active{padding-bottom:56px;}
+  /* Panels need no extra bottom padding — .panels already ends above nav bar */
+  /* #panel-crm gets special treatment for its absolute-positioned crm-body */
   #panel-crm.active{padding-bottom:0!important;}
 
   /* ── KALENDER ── */
@@ -701,15 +702,17 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Barlow
   .ev-row{grid-template-columns:1fr!important;}
 
   /* ── CRM ── */
+  /* panel-crm is display:flex;flex-direction:column (from .panel.active)
+     .ph takes its natural height, crm-body fills the rest */
+  #panel-crm{display:flex!important;flex-direction:column!important;}
   .crm-body{
-    position:absolute!important;
-    top:0!important;left:0!important;right:0!important;bottom:56px!important;
-    width:100%!important;height:auto!important;
+    flex:1!important;
+    position:relative!important;
+    top:auto!important;left:auto!important;right:auto!important;bottom:auto!important;
+    width:100%!important;height:auto!important;min-height:0!important;
     display:block!important;
     grid-template-columns:none!important;
-    grid-template-rows:none!important;
     overflow:hidden!important;
-    flex:none!important;
   }
 
   /* Lead list — full screen, slides left when detail opens */
@@ -825,6 +828,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Barlow
 .mob-back-btn{display:none;}
 .mob-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:490;}
 .mob-overlay.show{display:block;}
+.mob-bottom-nav{display:none;}
 
 ::-webkit-scrollbar{width:3px;height:3px;}
 ::-webkit-scrollbar-track{background:var(--bg2);}
@@ -1592,7 +1596,7 @@ html,body{height:100%;background:var(--bg);color:var(--text);font-family:'Barlow
 <div class="mob-overlay" id="mobOverlay" onclick="closeMobMenu()"></div>
 
 <!-- ══ MOBILE BOTTOM NAVIGATION ══════════════════════════════ -->
-<nav class="mob-bottom-nav" id="mobBottomNav" style="display:none">
+<nav class="mob-bottom-nav" id="mobBottomNav">
   <div class="mob-bn-item active" id="mbn-kalender" onclick="mobNav('kalender',this)">
     <span class="mob-bn-icon">📅</span>
     <span>Kalender</span>
@@ -4298,8 +4302,7 @@ function updateMobBadges(){
 
 function initMobileUI(){
   if(!isMobile()) return;
-  const nav = document.getElementById('mobBottomNav');
-  if(nav) nav.style.display='flex';
+  updateMobBadges();
 }
 
 function closeMobMenu(){
